@@ -13,4 +13,5 @@
 |
 */
 
-$router->get('/productivity', 'ProductivityController@get');
+$router->get('/productivity', 'MetricsController@get');
+$router->get('/confidence', 'MetricsController@getConfidence');

@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <Stats msg="Welcome to Your Vue.js App"/>
+    <Productivity />
+
+    <Confid />
   </div>
 </template>
 
 <script>
-import Stats from './components/Stats.vue'
+import Productivity from './components/Productivity.vue'
+import Confid from "@/components/Confid";
 
 export default {
   name: 'App',
   components: {
-    Stats
+    Confid,
+    Productivity
   }
 }
 </script>

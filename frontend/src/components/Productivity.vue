@@ -1,9 +1,10 @@
 <template>
   <div class="container">
+    <p class="font-weight-light font-italic">Vivien Kouamedjo  & Taoufik Tribki</p> <br/>
     <strong>Indicateur 1  : Productivité des étudiants</strong>
-    <p>Permet d'afficher la productivité (consultation des cours..) des étudiants classé par date et ansi que le pourcentage des étudiants impliqués, l'indicateur va permettre au professeur de mieux répartir la charge de travail aux étudiants et d'adapter son cours pour le rendre plus dynamique </p>
+    <p class="font-italic">Permet d'afficher la productivité (consultation des cours/forums..) des étudiants classés par date et ainsi que le pourcentage des étudiants impliqués, l'indicateur permet aux professeurs de mieux répartir la charge de travail aux étudiants et d'adapter son cours pour le rendre plus dynamique et interactive</p>
 
-    <div v-if="loading" class="spinner-border" role="status">
+    <div v-if="loading" class="row spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
     <apexchart v-else :options="options" :series="series"></apexchart>
@@ -13,10 +14,11 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Stats',
+  name: 'Productivity',
   data() {
     return {
       loading: true,
+      loadingc: false,
       productivity: [],
       series: [
         {
@@ -45,24 +47,34 @@ export default {
           enabled: true,
           enabledOnSeries: [1]
         },
-        labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+        labels: [],
         xaxis: {
-          type: 'datetime'
-        },
-        yaxis: [{
-          title: {
-            text: 'Pourcentage d\'implication (%)',
-          },
-
-        }, {
-          floating: false,
-          opposite: true,
-          title: {
-            text: 'Total interactions'
+          type: 'datetime',
+          labels: {
+            format: 'dd MMM yyyy',
           }
-        }
+        },
+        yaxis: [
+          {
+            title: {
+              text: 'Pourcentage d\'implication (%)',
+            },
+            labels: {
+              formatter: function (val) {
+                return val + "%"
+              },
+            }
+          },
+          {
+            floating: false,
+            opposite: true,
+            title: {
+              text: 'Total interactions'
+            }
+          }
         ]
-      }
+      },
+
     }
   },
   methods: {
@@ -85,16 +97,13 @@ export default {
             console.log(data);
 
             data.forEach(elem => {
-              activities.push(Math.trunc(elem.activity_total))
-              rates.push(elem.participation_rate)
+              activities.push(elem.activity_total)
+              rates.push(Math.floor(elem.participation_rate*100))
               dates.push(elem.date)
             });
 
             this.loading = false
           });
-
-      // console.log(activities);
-      // console.log(rates);
 
       return {
         series: [
@@ -119,6 +128,7 @@ export default {
     // update graph
     this.series = productivityData.series
     this.options = {labels: productivityData.dates }
+
   }
 }
 </script>
