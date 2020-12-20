@@ -3,9 +3,9 @@
 Using [PHP Lumen Framework](https://lumen.laravel.com/)
 
 ## Setup
-
-1. Upload database **traceforum.sql**
-2. Add this database view :
+1. In commande line : ```composer install``` to install dependencies
+2. Upload database **traceforum.sql** (in the root of the project)
+3. (Optional) Add this database view : (if you have already database without view)
 
 ##### View of productivity
 ```sql
@@ -62,8 +62,8 @@ AS
 
 ```
 
-3. Update `.env` config file
-3. Launch the application server
+4. Rename .env.example to  `.env` config file and configure database
+5. Launch the application server
 ```php
 php -S localhost:8000 -t public
 ```
