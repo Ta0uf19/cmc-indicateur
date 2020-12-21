@@ -5,7 +5,7 @@ Using [PHP Lumen Framework](https://lumen.laravel.com/)
 ## Setup
 1. In commande line : ```composer install``` to install dependencies
 2. Upload database **traceforum.sql** (in the root of the project)
-3. (Optional) Add this database view : (if you have already database without view)
+3. Add database views (act as aggregated tables):
 
 ##### View of productivity
 ```sql
